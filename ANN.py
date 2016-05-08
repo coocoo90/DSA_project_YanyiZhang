@@ -6,11 +6,12 @@ import gzip
 import os
 import skimage.feature as features
 class Layers:
-    error=None
-    inPut=None
-    OutPut=None
+
     def __init__(self,size,isIn):
         self.size=size
+        error=None
+        inPut=None
+        OutPut=None
         self.isIn=isIn
 
 class ANN:
@@ -65,7 +66,6 @@ class ANN:
             preError=np.array(preError)
 
             preError=np.delete(preError,-1)
-            self.previous.error=preError
 
         delta=np.dot(preOut[np.newaxis].T,curError[np.newaxis])
         self.weights-=delta*learningRate
