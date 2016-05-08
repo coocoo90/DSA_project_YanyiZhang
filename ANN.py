@@ -20,14 +20,15 @@ class ANN:
         self.previous=previous
         self.current=current
 
-        self.previousSize=previous.size+1
+        self.sizePreLayer=previous.size+1
 
-        self.currentSize=current.size
+
 
         if not weights:
-           self.weights=np.random.random_sample([self.previousSize,self.currentSize])
+           self.weights=np.random.random_sample([self.sizePreLayer,self.sizecurLayer])
         else:
             self.weights=weights
+        self.sizecurLayer=current.size
 
 
     def feed(self):
@@ -60,8 +61,9 @@ class ANN:
         if not self.previous.isIn:
             preError=[]
             for i in range(len(preOut)):
-
-                err=sum(curError*self.weights[i])*self.deriv(preOut[i])
+                err=0
+                for j in range(len(self.weights)):
+                    err+=curError*self.weights[i][j])*self.deriv(preOut[i])
                 preError.append(err)
             preError=np.array(preError)
 
